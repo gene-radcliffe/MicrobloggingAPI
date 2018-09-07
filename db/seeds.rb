@@ -15,3 +15,7 @@ while User.all.length < 100
     User.create(username: new_username, password: "password")
   end
 end
+
+while Proclamation.all.length < 200
+  Proclamation.create(body: proclamations.sample, user_id: User.all.sample.id)
+end
