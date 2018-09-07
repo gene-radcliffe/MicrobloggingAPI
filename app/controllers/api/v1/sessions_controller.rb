@@ -3,11 +3,17 @@ class Api::V1::SessionsController < ApplicationController
 
     def create
         
-       user = User.find_by_username(params[:username])
-       
-       if user && user.authenticate(params[:password]) then
-
-    
-
+        begin
+        user = User.find_by_username(params[:username])
+        
+        if user && user.authenticate(params[:password]) then
+                @user=user
+        end  
+        rescue StandardError => e 
+            render :json=> {
+                :status => "Unauthorized",
+                :message => "Thy auth'rization hast did fail"
+            }
+        end
     end
 end
