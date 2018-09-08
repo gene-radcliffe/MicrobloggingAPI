@@ -1,7 +1,7 @@
 class Api::V1::CommentsController < ApplicationController
 
   def index
-    @comments = Proclamation.find(params[:food_truck_id]).comments
+    @comments = Proclamation.find(params[:proclamation_id]).comments
     render json: @comments
   end
 
