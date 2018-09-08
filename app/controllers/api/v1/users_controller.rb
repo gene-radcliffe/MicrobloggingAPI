@@ -1,6 +1,17 @@
 class Api::V1::UsersController < ApplicationController
 
     def index
-        byebug
+        
+        
+
+        @users = User.all
+        
+        # render :json=>{
+        #     :ok => :ok,
+        #     :data => @users
+        # }
+        
     end
+
+    
 end
