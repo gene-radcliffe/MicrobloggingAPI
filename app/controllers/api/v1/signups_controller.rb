@@ -3,6 +3,7 @@ class Api::V1::SignupsController < ApplicationController
     byebug
     @user.new(user_params)
     @user.save
+    #signup
   end
 
 
