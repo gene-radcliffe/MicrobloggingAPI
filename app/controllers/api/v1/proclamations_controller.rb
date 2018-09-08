@@ -1,5 +1,6 @@
 class Api::V1::ProclamationsController < ApplicationController
-  
+ 
+
 # this controller has not yet implemented jbuilder
 
   def index

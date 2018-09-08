@@ -1,4 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
+ 
 
   def index
     @comments = Proclamation.find(params[:proclamation_id]).comments
