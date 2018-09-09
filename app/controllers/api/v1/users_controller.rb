@@ -2,9 +2,6 @@ class Api::V1::UsersController < ApplicationController
      skip_before_action :authenticate_token, only: :create
 
     def index
-        
-        
-
         @users = User.all
         
         render :json=>{
@@ -21,11 +18,12 @@ class Api::V1::UsersController < ApplicationController
         if @user.save then
         render :json =>{
             :status => :ok,
-            :message => "thee has't regist'r'd"
+            :message => "thee has't regist'r'd, taketh this token #{@user.auth_token}"
         }
         else
+            #render the user model errors
             render :json =>{
-                :status => :ok,
+                :status => :bad_request,
                 :message => @user.errors.messages
             }
             
@@ -34,7 +32,6 @@ class Api::V1::UsersController < ApplicationController
     private
     
     def signup_params
-    
         params.permit(:username, :password)
     end
 

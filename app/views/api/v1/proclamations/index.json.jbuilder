@@ -1,0 +1,1 @@
+@proclamations.to_json
