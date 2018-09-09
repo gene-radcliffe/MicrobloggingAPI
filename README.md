@@ -8,24 +8,29 @@ GET	/api/v1/users
 
 #### Create New User
 POST	/api/v1/users
+To create a new user account, send a POST request to /api/v1/users.  This action requires username and password parameters, and will return a full account record if complete. 
 
 #### Retrieve Authentication Token
 POST	/api/v1/session
+To retrieve your authentication token, send a POST request to /api/v1/session.  This action requires username and password parameters.
 
 #### Create New Comment on a Proclamation
 POST	/api/v1/proclamations/:proclamation_id/comments
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key.
 
 #### Index of Proclamations
 GET	/api/v1/proclamations
 
 #### Create New Proclamation
 POST	/api/v1/proclamations
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key.
 
 #### Show Proclamation and Comments
 GET	/api/v1/proclamations/:id
 
 #### Delete Proclamation
 DELETE	/api/v1/proclamations/:id
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key.
 
 ## Build a Microblogging API
 
