@@ -1,7 +1,7 @@
 class Api::V1::FollowsController < ApplicationController
 skip_before_action :authenticate_token
     def index
-        ##gets people who are following you
+      
        @following = Follow.where following_id: params[:user_id]
         render :json =>{
             :status => :ok,
