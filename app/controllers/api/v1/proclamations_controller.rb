@@ -4,7 +4,6 @@ class Api::V1::ProclamationsController < ApplicationController
 
   def index
     @proclamations = Proclamation.all
-    render json: @proclamations
   end
 
   def create
@@ -18,7 +17,6 @@ class Api::V1::ProclamationsController < ApplicationController
 
   def show
     @proclamation = Proclamation.find(params[:id])
-    render json: @proclamation
   end
 
   def update
