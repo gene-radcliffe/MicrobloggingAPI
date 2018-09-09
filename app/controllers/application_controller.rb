@@ -1,17 +1,16 @@
 class ApplicationController < ActionController::API
     include ActionController::HttpAuthentication::Token::ControllerMethods
-    before_action :authenticate_token
 
+    private
+    def authenticate
+      authenticate_or_request_with_http_token do |token, options|
+        # Compare the tokens in a time-constant manner, to mitigate
+        # timing attacks.
+        User.find_by_auth_token(token)
+      end
+    end
 
-    def authenticate_token
-
-        user = authenticate_with_http_token do |token, options|
-            User.find_by_auth_token(token)
-            
-          end
-      
-          unless user
-            render json: { error: "You don't have permission to access these resources" }, status: :unauthorized
-          end
+    def verified_user
+      User.find_by auth_token: ActionController::HttpAuthentication::Token.token_and_options(request)[0]
     end
 end
