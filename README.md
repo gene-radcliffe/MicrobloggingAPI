@@ -1,4 +1,33 @@
-# Build a Microblogging API
+# Tudor
+Tudor is what was happening in England/Scotland/Ireland and what people were talking about 1,000 years ago.
+
+## API
+### End Points
+#### Index of Users
+GET	/api/v1/users
+
+#### Create New User
+POST	/api/v1/users
+
+#### Retrieve Authentication Token
+POST	/api/v1/session
+
+#### Create New Comment on a Proclamation
+POST	/api/v1/proclamations/:proclamation_id/comments
+
+#### Index of Proclamations
+GET	/api/v1/proclamations
+
+#### Create New Proclamation
+POST	/api/v1/proclamations
+
+#### Show Proclamation and Comments
+GET	/api/v1/proclamations/:id
+
+#### Delete Proclamation
+DELETE	/api/v1/proclamations/:id
+
+## Build a Microblogging API
 
 ## Description
 
