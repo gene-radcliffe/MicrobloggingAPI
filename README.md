@@ -1,6 +1,6 @@
 # Build a Microblogging API
 
-## Description
+## Follow Users
 
 For this group project, you will work in pairs to build an api-only application that provides data to a service like Twitter. The application will allow users to create and share short posts and comment on posts.
 
