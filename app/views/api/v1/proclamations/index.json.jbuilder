@@ -1,1 +1,4 @@
-@proclamations.to_json
+json.array! @proclamations do |proclamation|
+    json.username proclamation.user.username
+    json.body proclamation.body
+end

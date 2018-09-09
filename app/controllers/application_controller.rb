@@ -35,6 +35,7 @@ class ApplicationController < ActionController::API
              user = User.find_by_username(username)
              if user && user.authenticate(password) 
                 @auth_user= user 
+                # render json: {status: :ok, message: "Your id is: #{@auth_user.id}"}
              end
 
         end
