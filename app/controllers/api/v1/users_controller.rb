@@ -1,12 +1,12 @@
 class Api::V1::UsersController < ApplicationController
      skip_before_action :authenticate_token, only: :create
 
-    def create
-        @user = User.new(user_params)
-        if @user.save
-            render json: @user
-        end
-    end
+    # def create
+    #     @user = User.new(user_params)
+    #     if @user.save
+    #         render json: @user
+    #     end
+    # end
 
     def index
         @users = User.all        
@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
   
     def create
   
-        @user = User.new(signup_params)
+        @user = User.new(user_params)
        
         if @user.save then
         render :json =>{
@@ -32,11 +32,9 @@ class Api::V1::UsersController < ApplicationController
     end
     private
     
-    def signup_params
-        params.permit(:username, :password)
-    end
-
+   
 private
+
 
   def user_params
       params.permit(:username, :password)
