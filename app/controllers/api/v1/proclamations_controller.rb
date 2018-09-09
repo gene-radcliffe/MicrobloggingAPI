@@ -1,5 +1,5 @@
 class Api::V1::ProclamationsController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate, except: [ :index, :show ]
 # this controller has not yet implemented jbuilder
 
   def index
@@ -9,7 +9,7 @@ class Api::V1::ProclamationsController < ApplicationController
 
   def create
     # needs authentication - user_id match account
-    @proclamation = Proclamation.new(params.permit(:body, :user_id))
+    @proclamation = Proclamation.new(params.permit(:body).merge({user_id: verified_user.id}))
     if @proclamation.save
       render json: @proclamation
     else
@@ -55,4 +55,5 @@ class Api::V1::ProclamationsController < ApplicationController
     def verified_user
       User.find_by auth_token: ActionController::HttpAuthentication::Token.token_and_options(request)[0]
     end
+
 end
