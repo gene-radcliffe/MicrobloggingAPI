@@ -4,7 +4,6 @@ class Api::V1::ProclamationsController < ApplicationController
 
   def index
     @proclamations = Proclamation.all
-    render json: @proclamations
   end
 
   def create
