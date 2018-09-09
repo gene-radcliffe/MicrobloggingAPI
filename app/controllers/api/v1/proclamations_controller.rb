@@ -17,7 +17,6 @@ class Api::V1::ProclamationsController < ApplicationController
 
   def show
     @proclamation = Proclamation.find(params[:id])
-    render json: @proclamation
   end
 
   def update
