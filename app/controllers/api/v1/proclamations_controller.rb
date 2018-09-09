@@ -1,7 +1,5 @@
 class Api::V1::ProclamationsController < ApplicationController
-  skip_before_action :authenticate_token
-  before_action :authenticate_user_password
-
+  before_action :authenticate, except: [ :index, :show ]
 # this controller has not yet implemented jbuilder
 
   def index
@@ -12,16 +10,9 @@ class Api::V1::ProclamationsController < ApplicationController
   end
 
   def create
-    
-    # needs authentication - user_id match account
-    
-    if @auth_user.id == params[:user_id]
-      @proclamation = Proclamation.new(params.permit(:body, :user_id))
-      if @proclamation.save
-        render json: @proclamation
-      else
-        render json: @proclamation.errors, status: :bad_request
-      end
+    @proclamation = Proclamation.new(params.permit(:body).merge({user_id: verified_user.id}))
+    if @proclamation.save
+      render json: @proclamation
     else
       render :json =>{
           :status => :bad_request,
@@ -36,42 +27,27 @@ class Api::V1::ProclamationsController < ApplicationController
   end
 
   def update
-    # needs authentication - admin account only
-    if admin 
-      @proclamation = Proclamation.find(params[:id])
+    # needs authentication - admin account only.  Current authentication
+    # is checking user only as a test, but should be replaced
+    @proclamation = Proclamation.find(params[:id])
+    if @proclamation.user_id == verified_user.id
       if @proclamation.update(params.permit(:body, :user_id))
         render json: @proclamation
       else
         render json: @proclamation.errors, status: :bad_request
       end
-    else
-      render json: {status: :unauhtorized, message: "You are not an admin"}
     end
   end
 
   def destroy
-    # needs authentication - user_id match account
-    
-      @proclamation = Proclamation.find(params[:id])
-      #added user_id matching
-      if @auth_user.id == @proclamation.user_id
-        if @proclamation.delete
-          render :json => {
-            :status => :ok, 
-            :message => "Successfully deleted!",
-          }
-        end
-      else
-        render :json =>{
-            :status => :bad_request,
-            :message => "thou art f'rbidden to fordid this proclamation"
+    @proclamation = Proclamation.find(params[:id])
+    if @proclamation.user_id == verified_user.id
+      if @proclamation.delete
+        render :json => {
+          :status => :ok, 
+          :message => "Successfully deleted!",
         }
       end
-  end
-
-  private
-
-  def admin
-    Administrator.find_by_user_id(@auth_user.id) 
+    end
   end
 end
