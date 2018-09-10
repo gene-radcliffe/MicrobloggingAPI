@@ -2,37 +2,35 @@ class Api::V1::FollowsController < ApplicationController
 before_action :authenticate
    
     def index
-      
-    #    @following = Follow.where following_id: params[:user_id]
-    #     render :json =>{
-    #         :status => :ok,
-    #         :message => @following
-
-    #     }
+     
         #gets all the followers
-        @followers = Follow.find(params[:user_id])
-        render :json =>{
-            :status => :ok,
-            :message => @followers
-
-        }
+        followers = Follow.where user_id: params[:user_id]
+        @followers = Array.new
+        followers.each do |follower|
+            user = User.find(follower.following_id)
+            @followers << user
+        end
+        
     end
     def create
         
          follow = Follow.new(follow_param)
 
          follow.save
-         user = User.find(params[:following_id])
+         user = User.find_by_user_id(params[:following_id])
         render json: {status: :ok, message: "you are now following #{user.username}"}
     end
+
     def destroy
-        byebug
-        unfollow = Follow.find(params[:id])
-        @follow = unfollow
+        followers = Follow.where user_id: params[:user_id]
+        unfollow = followers.find_by_following_id(params[:id])
+    
+        @user = User.find(unfollow.following_id)
         if !unfollow.destroy
             render json: {status: :bad_request, messsage: "error: #{unfollow.error.messages}"}
+    
         end
-            
+        render 'api/v1/follows/show'
     end
     private
 

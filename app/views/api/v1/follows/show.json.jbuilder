@@ -1,3 +1,3 @@
 json.unfollowed do
-    json.username @follow.username
+    json.username @user.username
 end
