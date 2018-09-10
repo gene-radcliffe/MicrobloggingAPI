@@ -13,4 +13,6 @@ class ApplicationController < ActionController::API
     def verified_user
       User.find_by auth_token: ActionController::HttpAuthentication::Token.token_and_options(request)[0]
     end
+
+
 end

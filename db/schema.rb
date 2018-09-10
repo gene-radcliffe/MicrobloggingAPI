@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_08_181625) do
+ActiveRecord::Schema.define(version: 2018_09_09_215900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "administrators", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "user_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.string "body"
@@ -23,6 +30,29 @@ ActiveRecord::Schema.define(version: 2018_09_08_181625) do
     t.datetime "updated_at", null: false
     t.index ["proclamation_id"], name: "index_comments_on_proclamation_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "follower_id"
+    t.integer "user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "following_id"
+    t.string "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "follows_users", force: :cascade do |t|
+    t.bigint "follow_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["follow_id"], name: "index_follows_users_on_follow_id"
+    t.index ["user_id"], name: "index_follows_users_on_user_id"
   end
 
   create_table "proclamations", force: :cascade do |t|

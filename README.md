@@ -32,9 +32,18 @@ GET	/api/v1/proclamations/:id
 DELETE	/api/v1/proclamations/:id
 This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key.
 
-## Build a Microblogging API
+#### Show all Followers for the user
+GET	/api/v1/users/
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key. Parameters ([:user_id] a valid and authenticated user)
+#### Follow a User
+POST	/api/v1/users/:user_id/follows
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key. Parameters ([:user_id] a valid and authenticated user. [:following_id] a user to follow)
+#### unfollow a User
+POST	/api/v1/users/:user_id/follows/:id
+This action requires token authentication.  Include a valid authentication token in your request header associated to the Authorization key. Parameters ([:user_id] a valid and authenticated user. [:id] a user to unfollow)
 
-## Description
+
+## Build a Microblogging API
 
 For this group project, you will work in pairs to build an api-only application that provides data to a service like Twitter. The application will allow users to create and share short posts and comment on posts.
 

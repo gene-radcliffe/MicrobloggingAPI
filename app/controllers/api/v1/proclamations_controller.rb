@@ -11,7 +11,10 @@ class Api::V1::ProclamationsController < ApplicationController
     if @proclamation.save
       render json: @proclamation
     else
-      render json: @proclamation.errors, status: :bad_request
+      render :json =>{
+          :status => :bad_request,
+          :message => "Cannot add you are logged in with the user id: #{@auth_user.id}"
+      }
     end
   end
 

@@ -15,7 +15,7 @@ class Api::V1::SessionsController < ApplicationController
                }
         else
             render :json => {
-                :status => "Unauthorized",
+                :status => :unauthorized,
                 :message => "Thy auth'rization hast did fail"
             }
         end  
